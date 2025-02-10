@@ -13,7 +13,6 @@ print("If your opponent has pushed ALL-IN, do NOT raise them, or else you will b
 print("If the program seems to have stopped when pressing ENTER to see cards, try BACKSPACE and then ENTER again.")
 input("Enter ANY KEY to begin.")
 
-
 # Timestep variable. Set to 1 for normal gameplay, 0 for instant
 step = 1
 
@@ -309,7 +308,6 @@ def award(x):
 
 # Check hands at showdown and determine winner.
 # #Contains 9 defs for each hand type.
-# One known issue - straight flushes return true when you can make a flush and a straight with two separate 5 card hands out of the 7
 def resolve():
     def royalflushcheck(a, b, c):
         global made_p1, made_p2
@@ -4654,9 +4652,9 @@ def newstage_p1():
     global both_check
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p1} to start. Will you CHECK or BET?'))
+    decision = str.lower(input(f'{name_p1} to start. Will you CHECK or BET?'))[0]
     while decision != 'c' and decision != 'b':
-        decision = str.lower(input('You must CHECK or BET.'))
+        decision = str.lower(input('You must CHECK or BET.'))[0]
     if decision == 'c':
         both_check += 1
         if both_check == 2:
@@ -4689,9 +4687,9 @@ def opcheck_p1():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p2} has checked. Will you CHECK or BET?'))
+    decision = str.lower(input(f'{name_p2} has checked. Will you CHECK or BET?'))[0]
     while decision != 'c' and decision != 'b':
-        decision = str.lower(input('You must CHECK or BET.'))
+        decision = str.lower(input('You must CHECK or BET.'))[0]
     if decision == 'c':
         both_check += 1
         if both_check == 2:
@@ -4724,11 +4722,12 @@ def opbet_p1():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p2} has bet {to_call_p1} chips. Will you CALL, RAISE or FOLD?'))
+    decision = str.lower(input(f'{name_p2} has bet {to_call_p1} chips. Will you CALL, RAISE or FOLD?'))[0]
     while decision != 'c' and decision != 'r' and decision != 'f':
-        decision = str.lower(input('You must CALL, RAISE or FOLD.'))
+        decision = str.lower(input('You must CALL, RAISE or FOLD.'))[0]
 
     if decision == 'f':
+        print()
         print(f'{name_p1} folds!')
         award(p2)
     if decision == 'r':
@@ -4759,10 +4758,11 @@ def opraise_p1():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p2} has raised you an additional {to_call_p1} chips. Will you CALL, RAISE or FOLD?'))
+    decision = str.lower(input(f'{name_p2} has raised you an additional {to_call_p1} chips. Will you CALL, RAISE or FOLD?'))[0]
     while decision != 'c' and decision != 'r' and decision != 'f':
-        decision = str.lower(input('You must CALL, RAISE or FOLD.'))
+        decision = str.lower(input('You must CALL, RAISE or FOLD.'))[0]
     if decision == 'f':
+        print()
         print(f'{name_p1} folds!')
         award(p2)
     if decision == 'r':
@@ -4800,10 +4800,11 @@ def opallin_p1():
     elif to_call_p1 >= chips_p1:
         print(f'{name_p2} has pushed you ALL-IN for {to_call_p1} chips!')
 
-    decision = str.lower(input(f'Will you CALL {to_call_p1} chips or FOLD?'))
+    decision = str.lower(input(f'Will you CALL {to_call_p1} chips or FOLD?'))[0]
     while decision != 'c' and decision != 'f':
-        decision = str.lower(input(f'You must CALL {to_call_p1} chips or FOLD.'))
+        decision = str.lower(input(f'You must CALL {to_call_p1} chips or FOLD.'))[0]
     if decision == 'f':
+        print()
         print(f'{name_p1} folds!')
         award(p2)
     if decision == 'c':
@@ -4876,9 +4877,9 @@ def newstage_p2():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p2} to start. Will you CHECK or BET?'))
+    decision = str.lower(input(f'{name_p2} to start. Will you CHECK or BET?'))[0]
     while decision != 'c' and decision != 'b':
-        decision = str.lower(input('You must CHECK or BET.'))
+        decision = str.lower(input('You must CHECK or BET.'))[0]
     if decision == 'c':
         both_check += 1
         if both_check == 2:
@@ -4911,9 +4912,9 @@ def opcheck_p2():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p1} has checked. Will you CHECK or BET?'))
+    decision = str.lower(input(f'{name_p1} has checked. Will you CHECK or BET?'))[0]
     while decision != 'c' and decision != 'b':
-        decision = str.lower(input('You must CHECK or BET.'))
+        decision = str.lower(input('You must CHECK or BET.'))[0]
     if decision == 'c':
         both_check += 1
         if both_check == 2:
@@ -4946,11 +4947,12 @@ def opbet_p2():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p1} has bet {to_call_p2} chips. Will you CALL, RAISE or FOLD?'))
+    decision = str.lower(input(f'{name_p1} has bet {to_call_p2} chips. Will you CALL, RAISE or FOLD?'))[0]
     while decision != 'c' and decision != 'r' and decision != 'f':
-        decision = str.lower(input('You must CALL, RAISE or FOLD.'))
+        decision = str.lower(input('You must CALL, RAISE or FOLD.'))[0]
 
     if decision == 'f':
+        print()
         print(f'{name_p2} folds!')
         award(p1)
     if decision == 'r':
@@ -4980,10 +4982,11 @@ def opraise_p2():
     global both_check, next_player
     global to_call_p1, to_call_p2
 
-    decision = str.lower(input(f'{name_p1} has raised you an additional {to_call_p2} chips. Will you CALL, RAISE or FOLD?'))
+    decision = str.lower(input(f'{name_p1} has raised you an additional {to_call_p2} chips. Will you CALL, RAISE or FOLD?'))[0]
     while decision != 'c' and decision != 'r' and decision != 'f':
-        decision = str.lower(input('You must CALL, RAISE or FOLD.'))
+        decision = str.lower(input('You must CALL, RAISE or FOLD.'))[0]
     if decision == 'f':
+        print()
         print(f'{name_p2} folds!')
         award(p1)
     if decision == 'r':
@@ -5021,10 +5024,11 @@ def opallin_p2():
     elif to_call_p2 >= chips_p2:
         print(f'{name_p1} has pushed you ALL-IN for {to_call_p2} chips!')
 
-    decision = str.lower(input(f'Will you CALL {to_call_p2} chips or FOLD?'))
+    decision = str.lower(input(f'Will you CALL {to_call_p2} chips or FOLD?'))[0]
     while decision != 'c' and decision != 'f':
-        decision = str.lower(input(f'You must CALL {to_call_p2} chips or FOLD.'))
+        decision = str.lower(input(f'You must CALL {to_call_p2} chips or FOLD.'))[0]
     if decision == 'f':
+        print()
         print(f'{name_p2} folds!')
         award(p1)
     if decision == 'c':
