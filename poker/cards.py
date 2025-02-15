@@ -16,6 +16,7 @@ from dataclasses import dataclass
 import colorama as color
 
 
+# Simple enum to keep all the card suits in one place
 @dataclass
 class Suit:
     name: str
@@ -94,8 +95,20 @@ class Deck:
         random.shuffle(self.cards)
 
     def draw(self, card_count: int = 1) -> list[Card]:
+        """Draw cards from deck
+
+        Args:
+            card_count (int, optional): Number of cards to draw. Defaults to 1.
+
+        Raises:
+            ValueError: Must have cards left in the deck to draw
+            ValueError: Cards to draw must be great then 1
+
+        Returns:
+            list[Card]: _description_
+        """
         # check there are any cards left in the deck
-        if not self.cards:
+        if len(self.cards) < card_count:
             raise ValueError("No more cards in the deck to draw.")
 
         # check the user is trying to draw at least one card
@@ -107,16 +120,14 @@ class Deck:
 
     def __str__(self) -> str:
         """Print out the deck of cards in a nice format"""
-        return "\n".join([str(card) for card in self.cards])
+        return " ".join([str(card) for card in self.cards])
 
 
 if __name__ == "__main__":
-    # Create a new deck
+    # Create a new deck and print it
     deck = Deck()
     print(deck)
 
     # draw 5 cards and print them out
     hand = deck.draw(5)
-    print("Your Hand:")
-    for card in hand:
-        print(card)
+    print(f"Your Hand: {hand}")

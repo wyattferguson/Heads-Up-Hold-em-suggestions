@@ -9,10 +9,5 @@ import os
 
 
 def clear_screen() -> None:
-    """Clears the terminal screen.
-
-    Replaced all the for loops with printstatments and just used a
-    simple os call.
-
-    """
+    """Clear the terminal screen."""
     os.system("cls" if os.name == "nt" else "clear")

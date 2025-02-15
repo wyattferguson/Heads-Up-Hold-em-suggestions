@@ -1,7 +1,9 @@
 """
 + Moved all your player stuff here. This is where you can add more player specific logic.
-+ try to keep your player to just things that a single player would need
++ try to keep your player file to just things that a single player would need
 + Take a peak at the next_move function, we've got a nice docstring underneath
++ Your logic for determining your next move will go in the 'next_move' function, I've added
+a few examples to get you started.
 """
 
 from enum import Enum
@@ -18,6 +20,7 @@ class Play(Enum):
     FOLD = 2
     CALL = 3
     BET = 4
+    ALL_IN = 5
 
 
 class Player:
@@ -29,9 +32,16 @@ class Player:
         self.color: str = color
 
     def next_move(
-        self, enemy_play: Play, stage: int, community: list[Card], pot: int, blind: int
+        self,
+        enemy_play: Play,
+        last_bet: int,
+        stage: int,
+        community: list[Card],
+        pot: int,
+        blind: int,
     ) -> tuple[Play, int]:
-        """Determine your players next move
+        """Determines the player's next move based on the current game state. This is super rough,
+        but should give you a good starting point.
 
         Args:
             enemy_play (Play): The play made by the opponent
@@ -39,16 +49,23 @@ class Player:
             community (list[Card]): The community cards available
             pot (int): Total amount of money in the pot
             blind (int): The blind amount
+            last_bet (int): The last bet made
 
         Returns:
             tuple[Play, int]: Play to make and the amount to bet (0 if not betting)
         """
+
         if enemy_play == Play.WAIT:
             return (Play.CHECK, 0)
         elif enemy_play == Play.BET:
-            return (Play.CALL, 25)
+            # the has bet more then your bank go all in
+            if last_bet > self.bank:
+                return (Play.ALL_IN, self.bank)
 
-        return (Play.WAIT, 0)
+            # call your opp's bet
+            return (Play.CALL, last_bet)
+
+        return (Play.CALL, 0)
 
     def __str__(self):
         """Print out the player's name, bank, and hand in a nice format"""

@@ -64,10 +64,24 @@ class Game:
         self.is_running = False
 
     def __str__(self):
-        return f"""
-            Round: {self.stage.name}
-            Pot: {self.pot}
-            Ante: {self.ante}
-            Blind: {self.blind}
-            Community Cards: {', '.join(str(card) for card in self.community_cards)}
-            Players: {', '.join(str(player.name) for player in self.players)}"""
+        """Nicely format entire game state"""
+        return (
+            f"Round: {self.stage.name}\n"
+            f"Pot: {self.pot} | Ante: {self.ante} Blind: {self.blind}\n"
+            f"Community Cards: {' '.join(str(card) for card in self.community_cards)}\n"
+            f"Players: {', '.join(str(player.name) for player in self.players)}"
+        )
+
+
+if __name__ == "__main__":
+    # create a test game / players
+    import colorama as color
+
+    game = Game(
+        [Player("Jane", 100, color.Fore.CYAN), Player("Bill", 100, color.Fore.MAGENTA)],
+        10,
+        5,
+    )
+    game.next_round()
+
+    print(game)

@@ -47,6 +47,7 @@ def main():
 
     input("Press ENTER to begin.")
 
+    # if you ever wanted to add more players then 2 you could make this a loop
     p1_name = input("Player one, input name: ")
     p2_name = input("Player two, input name: ")
     start_chips = int(input("How many chips to start? "))
@@ -66,6 +67,7 @@ def main():
     ]
 
     game = Game(players, blind, ante)
+    # main game loop
     while game.is_running:
         # all your game logic can stem from here
         game.next_round()
