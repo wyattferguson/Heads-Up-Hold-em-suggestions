@@ -36,15 +36,12 @@ class Game:
         self.community_cards = []
 
         # deal each player a hand and take ante's
-        for idx, p in enumerate(self.players):
-            self.players[idx].hand = self.deck.draw(2)
-            self.players[idx].bank -= self.ante
-
-        # draw 3 cards for the community cards
-        self.community_cards = self.deck.draw(3)
+        for p in self.players:
+            p.hand = self.deck.draw(2)  # deal each player a hand
+            p.bank -= self.ante  # take ante from each player
 
         # add the total of all the players ante's to the pot
-        self.pot = sum(p.ante for p in self.players)
+        self.pot = self.ante * len(self.players)
 
     def next_round(self):
         """Move to the next round of the game."""
@@ -67,9 +64,9 @@ class Game:
         """Nicely format entire game state"""
         return (
             f"Round: {self.stage.name}\n"
-            f"Pot: {self.pot} | Ante: {self.ante} Blind: {self.blind}\n"
+            f"Pot: {self.pot} | Ante: {self.ante} | Blind: {self.blind}\n"
             f"Community Cards: {' '.join(str(card) for card in self.community_cards)}\n"
-            f"Players: {', '.join(str(player.name) for player in self.players)}"
+            f"Players: {', '.join(player.name for player in self.players)}"
         )
 
 
@@ -82,6 +79,10 @@ if __name__ == "__main__":
         10,
         5,
     )
-    game.next_round()
+    game.new_game()  # start a new game
+    game.next_round()  # goto the FLOP so each player has cards and anted
+    print(game)  # show game state
 
-    print(game)
+    # show player details
+    for p in game.players:
+        print(p)
